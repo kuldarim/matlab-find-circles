@@ -1,23 +1,8 @@
 clc; clear all; close all;
 
-A = imread('vat.png');
-imshow(A);
+image = imread('coins.png');
+imshow(image);
 
-Rmin = 10;
-Rmax = 100;
-
-[centers, radii, metric] = imfindcircles(A,[Rmin Rmax]);
-
-total_area = 0;
-
-for elm = radii
- area = circle_area(elm);
- fprintf('area = %f\n', area);
- total_area = total_area + area;
-end
-
-total = sum(total_area);
-
-fprintf('total = %f\n', total); 
+[total, centers, radii] = total_of_radius(image, 10, 100);
 
 viscircles(centers, radii, 'Color', 'b');
