@@ -1,7 +1,7 @@
 function [ total, centers, radii ] = total_of_radius( image, Rmin, Rmax )
 
 
-[centers, radii, metric] = imfindcircles(image,[Rmin Rmax]);
+[centers, radii] = imfindcircles(image,[Rmin Rmax], 'Method', 'TwoStage');
 
 total_area = 0;
 
