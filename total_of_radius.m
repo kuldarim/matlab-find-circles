@@ -1,7 +1,4 @@
-function [ total, centers, radii ] = total_of_radius( image, Rmin, Rmax )
-
-
-[centers, radii] = imfindcircles(image,[Rmin Rmax], 'Method', 'TwoStage');
+function [ total ] = total_of_radius( radii )
 
 total_area = 0;
 
@@ -12,8 +9,6 @@ for elm = radii
 end
 
 total = sum(total_area);
-
-fprintf('total = %f\n', total);
 
 end
 
