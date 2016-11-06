@@ -5,21 +5,10 @@ clc; clear all; close all;
  RGB = imread('vat.png');
 % rgb = imread('coins.png');
 % rgb = imread('coloredChips.png');
-figure; imshow(RGB);
-
-I = rgb2gray(RGB);
-bw = imbinarize(I);
+bw = im2bw(RGB, 0.9);
 figure; imshow(bw);
 
 bw = bwareaopen(bw,30);
-
-% fill a gap in the pen's cap
-% se = strel('disk',2);
-% bw = imclose(bw,se);
-% 
-% % fill any holes, so that regionprops can be used to estimate
-% % the area enclosed by each of the boundaries
-% bw = imfill(bw,'holes');
 
 se = strel('disk',2);
 bw = imclose(bw,se);
@@ -36,7 +25,7 @@ end
 
 stats = regionprops(L,'Area','Centroid');
 
-threshold = 0.98;
+threshold = 0.82;
 
 % loop over the boundaries
 for k = 1:length(B)
@@ -61,11 +50,10 @@ for k = 1:length(B)
   if metric > threshold
     centroid = stats(k).Centroid;
     plot(centroid(1),centroid(2),'ko');
-  end
-
-  text(boundary(1,2)-35,boundary(1,1)+13,metric_string,'Color','y',...
+    
+    text(boundary(1,2)-35,boundary(1,1)+13,metric_string,'Color','y',...
        'FontSize',14,'FontWeight','bold');
-
+  end
 end
 
 title(['Metrics closer to 1 indicate that ',...
