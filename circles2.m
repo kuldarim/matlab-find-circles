@@ -19,6 +19,7 @@ stats = regionprops(L,'Area','Centroid');
 threshold = 0.82;
 
 % Display the label matrix and draw each boundary
+imshow(label2rgb(L, @jet, [.5 .5 .5]))
 hold on
 
 % loop over the boundaries
@@ -39,13 +40,15 @@ for k = 1:length(B)
 
   % display the results
   metric_string = sprintf('%2.2f',metric);
+  area_string = sprintf('%2.2f', area);
 
   % mark objects above the threshold with a black circle
   if metric > threshold
     centroid = stats(k).Centroid;
     plot(boundary(:,2), boundary(:,1), 'w', 'LineWidth', 2)
-    text(boundary(1,2)-35,boundary(1,1)+13,metric_string,'Color','y',...
-       'FontSize',14,'FontWeight','bold');
+    text(boundary(1,2)-35,boundary(1,1)+43,metric_string,'Color','y','FontSize',14,'FontWeight','bold');
+    text(boundary(1,2)-35,boundary(1,1)+13,area_string,'Color','black','FontSize',14,'FontWeight','bold');
+
   end
 end
 
